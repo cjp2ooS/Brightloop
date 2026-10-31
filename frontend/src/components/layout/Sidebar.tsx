@@ -24,35 +24,35 @@ export const Sidebar: React.FC = () => {
   const isAdmin = user?.role === 'ADMIN';
 
   const linkClass = ({ isActive }: { isActive: boolean }) =>
-    `flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+    `group flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
       isActive
-        ? 'bg-blue-50 text-blue-700 font-semibold shadow-2xs'
-        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+        ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200/60 shadow-2xs'
+        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
     }`;
 
   if (isCustomer) {
     return (
-      <aside className="w-56 border-r border-slate-200 bg-white p-3 flex flex-col justify-between shrink-0 min-h-[calc(100vh-4rem)]">
+      <aside className="w-60 h-full border-r border-slate-200 bg-white p-3 flex flex-col justify-between shrink-0 overflow-y-auto select-none">
         <div className="space-y-4">
           <div>
-            <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 mb-2">
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">
               Customer Portal
             </div>
             <nav className="space-y-1">
               <NavLink to="/portal" className={linkClass}>
-                <LayoutDashboard className="w-4 h-4 text-blue-600" />
+                <LayoutDashboard className="w-4 h-4 text-blue-600 shrink-0" />
                 <span>My Overview</span>
               </NavLink>
               <NavLink to="/subscriptions" className={linkClass}>
-                <Layers className="w-4 h-4 text-indigo-600" />
+                <Layers className="w-4 h-4 text-indigo-600 shrink-0" />
                 <span>My Subscriptions</span>
               </NavLink>
               <NavLink to="/invoices" className={linkClass}>
-                <Receipt className="w-4 h-4 text-emerald-600" />
+                <Receipt className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Invoices & PDFs</span>
               </NavLink>
               <NavLink to="/payments" className={linkClass}>
-                <CreditCard className="w-4 h-4 text-amber-600" />
+                <CreditCard className="w-4 h-4 text-amber-600 shrink-0" />
                 <span>Payment History</span>
               </NavLink>
             </nav>
@@ -70,83 +70,83 @@ export const Sidebar: React.FC = () => {
   }
 
   return (
-    <aside className="w-60 border-r border-slate-200 bg-white p-3 flex flex-col justify-between shrink-0 min-h-[calc(100vh-4rem)] overflow-y-auto">
-      <div className="space-y-5">
+    <aside className="w-60 h-full border-r border-slate-200 bg-white p-3 flex flex-col justify-between shrink-0 overflow-y-auto select-none">
+      <div className="space-y-4">
         {/* SECTION 1: OPERATIONS */}
         <div>
-          <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 mb-1.5">
+          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-1">
             Operations
           </div>
           <nav className="space-y-0.5">
             <NavLink to="/" end className={linkClass}>
-              <LayoutDashboard className="w-4 h-4 text-blue-600" />
+              <LayoutDashboard className="w-4 h-4 text-blue-600 shrink-0" />
               <span>Financial Overview</span>
             </NavLink>
             <NavLink to="/billing-control" className={linkClass}>
-              <Activity className="w-4 h-4 text-amber-600" />
+              <Activity className="w-4 h-4 text-amber-600 shrink-0" />
               <span>Billing Engine</span>
             </NavLink>
             <NavLink to="/subscriptions" className={linkClass}>
-              <Layers className="w-4 h-4 text-indigo-600" />
+              <Layers className="w-4 h-4 text-indigo-600 shrink-0" />
               <span>Subscriptions</span>
             </NavLink>
             <NavLink to="/quotations" className={linkClass}>
-              <FileSpreadsheet className="w-4 h-4 text-sky-600" />
+              <FileSpreadsheet className="w-4 h-4 text-sky-600 shrink-0" />
               <span>Quotations</span>
             </NavLink>
           </nav>
         </div>
 
-        {/* SECTION 2: BILLING & RECONCILIATION */}
+        {/* SECTION 2: BILLING & COLLECTIONS */}
         <div>
-          <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 mb-1.5">
+          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-1">
             Billing & Collections
           </div>
           <nav className="space-y-0.5">
             <NavLink to="/invoices" className={linkClass}>
-              <Receipt className="w-4 h-4 text-emerald-600" />
+              <Receipt className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>Invoices & PDFs</span>
             </NavLink>
             <NavLink to="/payments" className={linkClass}>
-              <CreditCard className="w-4 h-4 text-teal-600" />
+              <CreditCard className="w-4 h-4 text-teal-600 shrink-0" />
               <span>Payments</span>
             </NavLink>
             <NavLink to="/reconciliation" className={linkClass}>
-              <Scale className="w-4 h-4 text-purple-600" />
+              <Scale className="w-4 h-4 text-purple-600 shrink-0" />
               <span>Reconciliation</span>
             </NavLink>
             <NavLink to="/billing-runs" className={linkClass}>
-              <History className="w-4 h-4 text-slate-500" />
+              <History className="w-4 h-4 text-slate-500 shrink-0" />
               <span>Billing Runs</span>
             </NavLink>
           </nav>
         </div>
 
-        {/* SECTION 3: MANAGEMENT */}
+        {/* SECTION 3: CATALOGUE & USERS */}
         <div>
-          <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 mb-1.5">
+          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-1">
             Catalogue & Users
           </div>
           <nav className="space-y-0.5">
             <NavLink to="/products" className={linkClass}>
-              <Package className="w-4 h-4 text-orange-600" />
+              <Package className="w-4 h-4 text-orange-600 shrink-0" />
               <span>Products & Variants</span>
             </NavLink>
             <NavLink to="/plans" className={linkClass}>
-              <Layers className="w-4 h-4 text-blue-600" />
+              <Layers className="w-4 h-4 text-blue-600 shrink-0" />
               <span>Subscription Plans</span>
             </NavLink>
             <NavLink to="/taxes-discounts" className={linkClass}>
-              <Percent className="w-4 h-4 text-rose-600" />
+              <Percent className="w-4 h-4 text-rose-600 shrink-0" />
               <span>Taxes & Discounts</span>
             </NavLink>
             <NavLink to="/customers" className={linkClass}>
-              <Users className="w-4 h-4 text-cyan-600" />
+              <Users className="w-4 h-4 text-cyan-600 shrink-0" />
               <span>Customers</span>
             </NavLink>
             {isAdmin && (
               <NavLink to="/staff" className={linkClass}>
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                 <span>Staff Management</span>
               </NavLink>
             )}
@@ -155,21 +155,21 @@ export const Sidebar: React.FC = () => {
 
         {/* SECTION 4: DEMO & INTELLIGENCE */}
         <div>
-          <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 mb-1.5">
+          <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-1">
             Demo & Intelligence
           </div>
           <nav className="space-y-0.5">
             <NavLink to="/demo" className={linkClass}>
-              <PlayCircle className="w-4 h-4 text-amber-600" />
+              <PlayCircle className="w-4 h-4 text-amber-600 shrink-0" />
               <span>Hackathon Walkthrough</span>
             </NavLink>
             <NavLink to="/intelligence" className={linkClass}>
-              <Sparkles className="w-4 h-4 text-blue-600" />
+              <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
               <span>LOOPFLOW Copilot</span>
             </NavLink>
             {isAdmin && (
               <NavLink to="/audit-logs" className={linkClass}>
-                <History className="w-4 h-4 text-slate-500" />
+                <History className="w-4 h-4 text-slate-500 shrink-0" />
                 <span>Audit Trail</span>
               </NavLink>
             )}
@@ -178,7 +178,7 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* Footer Branding */}
-      <div className="pt-3 border-t border-slate-200 mt-4 px-2 text-[11px] text-slate-500 flex items-center justify-between">
+      <div className="pt-3 border-t border-slate-200 mt-4 px-2 text-[11px] text-slate-500 flex items-center justify-between shrink-0">
         <span className="font-medium">Brightloop OS</span>
         <span className="flex items-center gap-1.5 text-emerald-600 font-semibold text-[10px]">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> v1.0 Live

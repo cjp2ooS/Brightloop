@@ -26,7 +26,7 @@ const ProtectedLayout: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="h-screen w-screen bg-slate-50 flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -37,11 +37,17 @@ const ProtectedLayout: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
+    <div className="h-screen w-screen overflow-hidden bg-slate-50 text-slate-900 flex flex-col font-sans select-none">
+      {/* Fixed Header */}
       <Navbar />
-      <div className="flex flex-1">
+
+      {/* Main App Body with Locked Split Layout */}
+      <div className="flex flex-1 h-[calc(100vh-4rem)] overflow-hidden">
+        {/* Pinned Fixed Sidebar */}
         <Sidebar />
-        <main className="flex-1 overflow-y-auto min-h-[calc(100vh-4rem)] p-2">
+
+        {/* Scrollable Main Content Area */}
+        <main className="flex-1 h-full overflow-y-auto overflow-x-hidden bg-slate-50">
           <Routes>
             {user.role === 'CUSTOMER' ? (
               <>

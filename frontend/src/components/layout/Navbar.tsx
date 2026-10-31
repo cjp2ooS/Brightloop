@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
   const displayName = user?.name ? user.name.split('(')[0].trim() : 'User';
 
   return (
-    <header className="h-16 border-b border-slate-200 bg-white/95 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40 shadow-xs">
+    <header className="h-16 shrink-0 border-b border-slate-200 bg-white/95 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40 shadow-xs">
       {/* Brand & Mode */}
       <div className="flex items-center gap-6">
         <Link to="/" className="flex items-center gap-2.5 group">
