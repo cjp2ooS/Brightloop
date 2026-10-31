@@ -1,0 +1,34 @@
+@base = http://localhost:5000/api/v1
+@adminToken = replace-with-admin-token
+@staffToken = replace-with-staff-token
+
+### Signup (first call returns 201; repeat the same email to verify 409)
+POST {{base}}/auth/signup
+Content-Type: application/json
+
+{"name":"A Customer","email":"customer@example.com","password":"Password!9"}
+
+### Weak password (400)
+POST {{base}}/auth/signup
+Content-Type: application/json
+
+{"name":"Weak Password","email":"weak@example.com","password":"weak"}
+
+### Forgot password; copy the link printed by backend console
+POST {{base}}/auth/forgot-password
+Content-Type: application/json
+
+{"email":"customer@example.com"}
+
+### Reset password with token copied from the logged link
+POST {{base}}/auth/reset-password
+Content-Type: application/json
+
+{"token":"paste-token-from-console-link","password":"NewPassword!9"}
+
+### Staff creation must reject STAFF token (403)
+POST {{base}}/users/staff
+Authorization: Bearer {{staffToken}}
+Content-Type: application/json
+
+{"name":"New Staff","email":"new.staff@example.com","password":"StaffPassword!9"}

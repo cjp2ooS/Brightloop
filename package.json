@@ -1,0 +1,7 @@
+{
+  "name": "brightloop-subscription-management",
+  "private": true,
+  "scripts": {
+    "fixtures": "npm --prefix backend run fixtures"
+  }
+}
