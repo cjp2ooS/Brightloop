@@ -1,12 +1,21 @@
 -- Prices are stored as integer minor units throughout the catalog API.
 ALTER TABLE "Product"
+  ALTER COLUMN "costPrice" DROP DEFAULT;
+
+ALTER TABLE "Product"
   ALTER COLUMN "type" SET DEFAULT 'SOFTWARE',
-  ALTER COLUMN "costPrice" SET DEFAULT 0,
   ALTER COLUMN "salesPrice" TYPE INTEGER USING ROUND("salesPrice" * 100)::INTEGER,
   ALTER COLUMN "costPrice" TYPE INTEGER USING ROUND("costPrice" * 100)::INTEGER;
 
+ALTER TABLE "Product"
+  ALTER COLUMN "costPrice" SET DEFAULT 0;
+
 ALTER TABLE "ProductVariant"
-  ALTER COLUMN "extraPrice" TYPE INTEGER USING ROUND("extraPrice" * 100)::INTEGER;
+  ALTER COLUMN "extraPrice" DROP DEFAULT;
+
+ALTER TABLE "ProductVariant"
+  ALTER COLUMN "extraPrice" TYPE INTEGER USING ROUND("extraPrice" * 100)::INTEGER,
+  ALTER COLUMN "extraPrice" SET DEFAULT 0;
 
 CREATE UNIQUE INDEX "ProductVariant_productId_attribute_value_key"
   ON "ProductVariant"("productId", "attribute", "value");
