@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+build/
+.tmp/
+
+# Logs & Environment
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Databases & cache
+dev.db-journal
+*.tsbuildinfo
+.DS_Store
+Thumbs.db

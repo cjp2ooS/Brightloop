@@ -1,0 +1,97 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { Navbar } from './components/layout/Navbar';
+import { Sidebar } from './components/layout/Sidebar';
+import { Dashboard } from './pages/Dashboard';
+import { BillingControlCenter } from './pages/BillingControlCenter';
+import { Subscriptions } from './pages/Subscriptions';
+import { Quotations } from './pages/Quotations';
+import { Invoices } from './pages/Invoices';
+import { Payments } from './pages/Payments';
+import { Reconciliation } from './pages/Reconciliation';
+import { Products } from './pages/Products';
+import { Plans } from './pages/Plans';
+import { TaxesDiscounts } from './pages/TaxesDiscounts';
+import { Customers } from './pages/Customers';
+import { Staff } from './pages/Staff';
+import { AuditLogs } from './pages/AuditLogs';
+import { CustomerPortal } from './pages/CustomerPortal';
+import { IntelligenceAssistant } from './pages/IntelligenceAssistant';
+import { HackathonDemo } from './pages/HackathonDemo';
+import { Login } from './pages/Login';
+
+const ProtectedLayout: React.FC = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return (
+    <div className="min-h-screen bg-[#0B0F19] text-slate-100 flex flex-col">
+      <Navbar />
+      <div className="flex flex-1">
+        <Sidebar />
+        <main className="flex-1 overflow-y-auto min-h-[calc(100vh-4rem)]">
+          <Routes>
+            {user.role === 'CUSTOMER' ? (
+              <>
+                <Route path="/" element={<CustomerPortal />} />
+                <Route path="/portal" element={<CustomerPortal />} />
+                <Route path="/subscriptions" element={<Subscriptions />} />
+                <Route path="/invoices" element={<Invoices />} />
+                <Route path="/payments" element={<Payments />} />
+                <Route path="*" element={<Navigate to="/portal" replace />} />
+              </>
+            ) : (
+              <>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/billing-control" element={<BillingControlCenter />} />
+                <Route path="/billing-runs" element={<BillingControlCenter />} />
+                <Route path="/subscriptions" element={<Subscriptions />} />
+                <Route path="/quotations" element={<Quotations />} />
+                <Route path="/invoices" element={<Invoices />} />
+                <Route path="/payments" element={<Payments />} />
+                <Route path="/reconciliation" element={<Reconciliation />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/plans" element={<Plans />} />
+                <Route path="/taxes-discounts" element={<TaxesDiscounts />} />
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/staff" element={<Staff />} />
+                <Route path="/audit-logs" element={<AuditLogs />} />
+                <Route path="/intelligence" element={<IntelligenceAssistant />} />
+                <Route path="/demo" element={<HackathonDemo />} />
+                <Route path="/portal" element={<CustomerPortal />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </>
+            )}
+          </Routes>
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<ProtectedLayout />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
+}
+
+export default App;
