@@ -1,92 +1,112 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Sparkles, Bell, Shield, UserCheck, User, LogOut, CheckCircle2 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Sparkles, Shield, UserCheck, User, LogOut, CheckCircle2, PlayCircle } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
   const { user, logout, quickSwitchRole } = useAuth();
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Extract a clean display name (e.g., "Victoria Vance" without long title)
+  const displayName = user?.name ? user.name.split('(')[0].trim() : 'User';
 
   return (
-    <header className="h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40">
+    <header className="h-16 border-b border-slate-200 bg-white/95 backdrop-blur-md px-6 flex items-center justify-between sticky top-0 z-40 shadow-xs">
       {/* Brand & Mode */}
-      <div className="flex items-center gap-4">
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-blue-600 via-indigo-500 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <span className="font-black text-white text-base tracking-tighter">LF</span>
+      <div className="flex items-center gap-6">
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="h-8 w-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-xs group-hover:bg-blue-700 transition-colors">
+            LF
           </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-slate-100 tracking-tight text-base leading-none">LOOPFLOW</span>
-            <span className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold mt-0.5">Brightloop SaaS OS</span>
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-900 tracking-tight text-base leading-none">LOOPFLOW</span>
+            <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 border border-blue-200/60 px-1.5 py-0.5 rounded tracking-wide uppercase">
+              Brightloop
+            </span>
           </div>
         </Link>
 
         {/* Demo Fast Switcher Pill */}
-        <div className="hidden md:flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 ml-6 text-xs font-medium">
-          <span className="text-slate-400 px-2 text-[11px]">Role Switch:</span>
+        <div className="hidden lg:flex items-center bg-slate-100 border border-slate-200/80 rounded-lg p-0.5 text-xs">
+          <span className="text-slate-400 px-2 text-[11px] font-medium">Role:</span>
           <button
             onClick={() => quickSwitchRole('ADMIN')}
-            className={`px-2.5 py-1 rounded-full transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5 text-xs ${
               user?.role === 'ADMIN'
-                ? 'bg-blue-600 text-white font-semibold shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-blue-700 font-semibold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Shield className="w-3 h-3" /> Admin
+            <Shield className="w-3 h-3 text-blue-600" /> Admin
           </button>
           <button
             onClick={() => quickSwitchRole('STAFF')}
-            className={`px-2.5 py-1 rounded-full transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5 text-xs ${
               user?.role === 'STAFF'
-                ? 'bg-indigo-600 text-white font-semibold shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-indigo-700 font-semibold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <UserCheck className="w-3 h-3" /> Staff
+            <UserCheck className="w-3 h-3 text-indigo-600" /> Staff
           </button>
           <button
             onClick={() => quickSwitchRole('CUSTOMER')}
-            className={`px-2.5 py-1 rounded-full transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 py-1 rounded-md transition-all flex items-center gap-1.5 text-xs ${
               user?.role === 'CUSTOMER'
-                ? 'bg-emerald-600 text-white font-semibold shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-white text-emerald-700 font-semibold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            <User className="w-3 h-3" /> Customer
+            <User className="w-3 h-3 text-emerald-600" /> Customer
           </button>
         </div>
       </div>
 
       {/* Right controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
         {/* Hackathon 9-Step Walkthrough Button */}
         <Link
           to="/demo"
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 text-amber-300 hover:border-amber-400 text-xs font-semibold transition-all hover:scale-[1.02]"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border shadow-2xs ${
+            location.pathname === '/demo'
+              ? 'bg-amber-100/80 border-amber-300 text-amber-900'
+              : 'bg-amber-50/70 border-amber-200/80 text-amber-800 hover:bg-amber-100/80'
+          }`}
         >
-          <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
-          <span>Hackathon Demo Scenario</span>
+          <PlayCircle className="w-3.5 h-3.5 text-amber-600" />
+          <span className="hidden sm:inline">Hackathon Demo</span>
         </Link>
 
         {/* AI Assistant */}
         <Link
           to="/intelligence"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 text-xs font-semibold transition-all"
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border shadow-2xs ${
+            location.pathname === '/intelligence'
+              ? 'bg-blue-100 border-blue-300 text-blue-800'
+              : 'bg-blue-50 border-blue-200/80 text-blue-700 hover:bg-blue-100'
+          }`}
         >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Ask LOOPFLOW AI</span>
+          <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+          <span className="hidden sm:inline">AI Copilot</span>
         </Link>
 
         {/* User Info & Logout */}
-        <div className="flex items-center gap-3 pl-3 border-l border-slate-800">
-          <div className="text-right hidden sm:block">
-            <div className="text-xs font-semibold text-slate-200 leading-none">{user?.name}</div>
-            <div className="text-[10px] text-slate-400 mt-1 capitalize">{user?.role?.toLowerCase()}</div>
+        <div className="flex items-center gap-2.5 pl-3 border-l border-slate-200 ml-1">
+          <div className="h-8 w-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs shadow-2xs">
+            {displayName.slice(0, 2).toUpperCase()}
+          </div>
+          <div className="text-left hidden md:block">
+            <div className="text-xs font-semibold text-slate-900 leading-tight truncate max-w-[120px]">
+              {displayName}
+            </div>
+            <div className="text-[10px] text-slate-500 font-medium capitalize">
+              {user?.role?.toLowerCase()}
+            </div>
           </div>
           <button
             onClick={logout}
             title="Log Out"
-            className="p-1.5 text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-900 transition-colors"
+            className="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 transition-colors ml-1"
           >
             <LogOut className="w-4 h-4" />
           </button>

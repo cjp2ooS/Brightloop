@@ -39,82 +39,82 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full space-y-6">
         {/* Brand */}
         <div className="text-center space-y-2">
-          <div className="inline-flex h-12 w-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-sky-400 items-center justify-center shadow-xl shadow-blue-500/20">
-            <span className="font-black text-white text-xl tracking-tighter">LF</span>
+          <div className="inline-flex h-12 w-12 rounded-xl bg-blue-600 items-center justify-center shadow-xs">
+            <span className="font-bold text-white text-xl tracking-tight">LF</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-100 tracking-tight">LOOPFLOW</h1>
-          <p className="text-xs text-slate-400">Brightloop Intelligent Subscription Management Platform</p>
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">LOOPFLOW</h1>
+          <p className="text-xs text-slate-500">Brightloop Subscription OS & Recurring Billing Platform</p>
         </div>
 
         {/* Quick fill buttons */}
-        <div className="p-3 bg-slate-900/60 border border-slate-800 rounded-xl space-y-2 text-xs">
-          <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">
+        <div className="p-3 bg-white border border-slate-200/80 rounded-xl space-y-2 text-xs shadow-2xs">
+          <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-wider block">
             1-Click Demo Evaluation Credentials:
           </span>
           <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => handleQuickFill('ADMIN')}
-              className="py-1.5 px-2 bg-slate-950 border border-slate-800 hover:border-blue-500 rounded text-slate-300 font-medium text-[11px] flex items-center justify-center gap-1"
+              className="py-1.5 px-2 bg-slate-50 border border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 rounded-lg text-slate-700 font-medium text-xs flex items-center justify-center gap-1 transition-all"
             >
-              <Shield className="w-3 h-3 text-blue-400" /> Admin
+              <Shield className="w-3.5 h-3.5 text-blue-600" /> Admin
             </button>
             <button
               type="button"
               onClick={() => handleQuickFill('STAFF')}
-              className="py-1.5 px-2 bg-slate-950 border border-slate-800 hover:border-indigo-500 rounded text-slate-300 font-medium text-[11px] flex items-center justify-center gap-1"
+              className="py-1.5 px-2 bg-slate-50 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 rounded-lg text-slate-700 font-medium text-xs flex items-center justify-center gap-1 transition-all"
             >
-              <UserCheck className="w-3 h-3 text-indigo-400" /> Staff
+              <UserCheck className="w-3.5 h-3.5 text-indigo-600" /> Staff
             </button>
             <button
               type="button"
               onClick={() => handleQuickFill('CUSTOMER')}
-              className="py-1.5 px-2 bg-slate-950 border border-slate-800 hover:border-emerald-500 rounded text-slate-300 font-medium text-[11px] flex items-center justify-center gap-1"
+              className="py-1.5 px-2 bg-slate-50 border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50/50 rounded-lg text-slate-700 font-medium text-xs flex items-center justify-center gap-1 transition-all"
             >
-              <User className="w-3 h-3 text-emerald-400" /> Customer
+              <User className="w-3.5 h-3.5 text-emerald-600" /> Customer
             </button>
           </div>
         </div>
 
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-4 shadow-xl">
+        <form onSubmit={handleSubmit} className="p-6 rounded-2xl bg-white border border-slate-200/80 space-y-4 shadow-sm">
           {error && (
-            <div className="p-3 rounded-lg bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs">
+            <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs">
               {error}
             </div>
           )}
 
           <div className="space-y-3 text-xs">
             <div>
-              <label className="block text-slate-400 font-semibold mb-1">Email Address</label>
+              <label className="block text-slate-600 font-semibold mb-1">Email Address</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@brightloop.io"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                  className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-slate-400 font-semibold mb-1">Password</label>
+              <label className="block text-slate-600 font-semibold mb-1">Password</label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                  className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:border-blue-500 font-mono"
                 />
               </div>
             </div>
@@ -123,9 +123,9 @@ export const Login: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+            className="w-full py-2.5 px-4 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-2xs transition-colors disabled:opacity-50"
           >
-            <span>Sign In to LOOPFLOW</span>
+            <span>{loading ? 'Authenticating...' : 'Sign In to LOOPFLOW'}</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
