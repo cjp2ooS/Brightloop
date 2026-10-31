@@ -14,15 +14,15 @@ enum UserRole {
 }
 
 model User {
-  id           String          @id @default(cuid())
-  name         String
-  email        String          @unique
-  passwordHash String
-  role         UserRole        @default(CUSTOMER)
-  isActive     Boolean         @default(true)
-  createdAt    DateTime        @default(now())
-  updatedAt    DateTime        @updatedAt
-  customer     Customer?
+  id             String          @id @default(cuid())
+  name           String
+  email          String          @unique
+  passwordHash   String
+  role           UserRole        @default(CUSTOMER)
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  customer       Customer?
   passwordResets PasswordReset[]
 }
 
@@ -49,4 +49,56 @@ model Customer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Product {
+  id           String           @id @default(cuid())
+  name         String
+  type         String           @default("SOFTWARE")
+  salesPrice   Int
+  costPrice    Int              @default(0)
+  notes        String?
+  isActive     Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  variants     ProductVariant[]
+  productTaxes ProductTax[]
+
+  @@index([isActive])
+}
+
+model ProductVariant {
+  id         String   @id @default(cuid())
+  productId  String
+  attribute  String
+  value      String
+  extraPrice Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, attribute, value])
+  @@index([productId])
+}
+
+model Tax {
+  id           String       @id @default(cuid())
+  name         String
+  ratePercent  Decimal      @db.Decimal(5, 2)
+  isActive     Boolean      @default(true)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  productTaxes ProductTax[]
+
+  @@index([isActive])
+}
+
+model ProductTax {
+  productId String
+  taxId     String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tax       Tax     @relation(fields: [taxId], references: [id], onDelete: Restrict)
+
+  @@id([productId, taxId])
+  @@index([taxId])
 }

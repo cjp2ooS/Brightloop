@@ -2,6 +2,8 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { LoginPage, SignupPage, ForgotPasswordPage, ResetPasswordPage } from '../modules/auth/AuthPages';
 import { StaffPage, CustomersPage } from '../modules/customers/ManagementPages';
 import { CustomerHomePage } from '../modules/auth/CustomerHomePage';
+import { ProductsPage, ProductDetailPage } from '../modules/products/ProductPages';
+import { TaxesPage } from '../modules/taxes/TaxPages';
 
 function Protected({ roles }) {
   const location = useLocation();
@@ -25,6 +27,11 @@ export const routes = [
   { element: <Protected roles={['CUSTOMER']} />, children: [{ path: '/account', element: <CustomerHomePage /> }] },
   { element: <Protected roles={['ADMIN']} />, children: [{ path: '/admin/staff', element: <StaffPage /> }] },
   { element: <Protected roles={['ADMIN', 'STAFF']} />, children: [{ path: '/admin/customers', element: <CustomersPage /> }] },
+  { element: <Protected roles={['ADMIN', 'STAFF']} />, children: [
+    { path: '/admin/products', element: <ProductsPage /> },
+    { path: '/admin/products/:id', element: <ProductDetailPage /> },
+    { path: '/admin/taxes', element: <TaxesPage /> },
+  ] },
   { path: '/', element: <HomeRedirect /> },
   { path: '*', element: <Navigate to="/login" replace /> },
 ];

@@ -15,7 +15,7 @@ router.post('/staff', async (req, res, next) => {
   try {
     const data = parseBody(staffSchema, req, res); if (!data) return;
     const passwordHash = await bcrypt.hash(data.password, 12);
-    const user = await prisma.user.create({ data: { ...data, passwordHash, role: 'STAFF' } });
+    const user = await prisma.user.create({ data: { name: data.name, email: data.email, passwordHash, role: 'STAFF' } });
     res.status(201).json({ user: safeUser(user) });
   } catch (error) { if (error.code === 'P2002') return res.status(409).json({ error: { code: 'EMAIL_TAKEN', message: 'Email is already registered' } }); next(error); }
 });
